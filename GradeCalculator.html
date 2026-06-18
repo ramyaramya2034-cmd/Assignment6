@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade Calculator</title>
+  <link rel="stylesheet" href="Style.css" type="text/css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Grade Calculator</h1>
+
+    <div class="input-group">
+      <label for="name">Student Name</label>
+      <input type="text" id="name" placeholder="Enter your name">
+    </div>
+
+    <div class="input-group">
+      <label for="sub1">Subject 1 Marks</label>
+      <input type="number" id="sub1" min="0" max="100">
+    </div>
+
+    <div class="input-group">
+      <label for="sub2">Subject 2 Marks</label>
+      <input type="number" id="sub2" min="0" max="100">
+    </div>
+
+    <div class="input-group">
+      <label for="sub3">Subject 3 Marks</label>
+      <input type="number" id="sub3" min="0" max="100">
+    </div>
+
+    <div class="input-group">
+      <label for="sub4">Subject 4 Marks</label>
+      <input type="number" id="sub4" min="0" max="100">
+    </div>
+
+    <div class="input-group">
+      <label for="sub5">Subject 5 Marks</label>
+      <input type="number" id="sub5" min="0" max="100">
+    </div>
+
+    <button onclick="calculateGrade()">Calculate Grade</button>
+
+    <div class="result" id="result">
+      <p><strong>Name:</strong> <span id="studentName"></span></p>
+      <p><strong>Total Marks:</strong> <span id="total"></span></p>
+      <p><strong>Percentage:</strong> <span id="percentage"></span>%</p>
+      <p class="grade">Grade: <span id="grade"></span></p>
+      <p class="alert">Congratulations! You  Are Passed<span id="alert"></span></p>
+    </div>
+  </div>
+
+  <script>
+    function calculateGrade() {
+      const name = document.getElementById("name").value;
+
+      const marks = [
+        Number(document.getElementById("sub1").value),
+        Number(document.getElementById("sub2").value),
+        Number(document.getElementById("sub3").value),
+        Number(document.getElementById("sub4").value),
+        Number(document.getElementById("sub5").value)
+      ];
+
+      if (name === "") 
+      {
+        alert("Please enter student name");
+        return;
+      }
+
+      for (let mark of marks) 
+      {
+        if (isNaN(mark) || mark < 0 || mark > 100) 
+        {
+          alert("Please enter valid marks between 0 and 100");
+          return;
+        }
+      }
+
+      let total = marks.reduce((sum, mark) => sum + mark, 0);
+      let percentage = total / marks.length;
+
+      let grade = "";
+
+      if (percentage >= 90) 
+        {
+          grade = "A+";
+        } 
+      else if (percentage >= 80) 
+        {
+          grade = "A";
+        } 
+      else if (percentage >= 70) 
+        {
+          grade = "B";
+        } 
+      else if (percentage >= 60) 
+        {
+          grade = "C";
+        } 
+      else if (percentage >= 50) 
+        {
+          grade = "D";
+        } 
+      else if (percentage >= 40)
+        {
+          grade = "F";
+        }
+
+      document.getElementById("studentName").textContent= name;
+      document.getElementById("total").textContent = total;
+      document.getElementById("percentage").textContent = percentage.toFixed(2);
+      document.getElementById("grade").textContent = grade;
+
+      document.getElementById("result").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
